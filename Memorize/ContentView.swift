@@ -11,14 +11,29 @@ struct ContentView: View {
     var viewModel: EmojiMemoryGame
     
     var body: some View {
+        if viewModel.cards.count / 2 > 4  {
         HStack {
             ForEach(viewModel.cards) { card in
-                CardView(card: card)
+                CardView(card: card).onTapGesture {
+                    viewModel.choose(card: card)
+                    }
+                }
             }
+                .padding()
+                .foregroundColor(Color.orange)
+                .font(Font.title3)
+        } else {
+            HStack {
+                ForEach(viewModel.cards) { card in
+                    CardView(card: card).onTapGesture {
+                        viewModel.choose(card: card)
+                        }
+                    }
+                }
+                    .padding()
+                    .foregroundColor(Color.orange)
+                    .font(Font.largeTitle)
         }
-            .padding()
-            .foregroundColor(Color.orange)
-            .font(Font.largeTitle)
     }
 }
 

@@ -14,18 +14,19 @@ struct MemoryGame<CardContent> {
         print("card chosen: \(card)")
     }
 
-    init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+    init(numberOfPairsOfCards: Int, cardContentFactory: () -> CardContent) {
         cards = Array<Card>()    // create an empty array of cards
         for pairIndex in 0..<numberOfPairsOfCards {
-            let content = cardContentFactory(pairIndex)
+            let content = cardContentFactory()
             cards.append(Card(content: content, id: pairIndex*2))
             cards.append(Card(content: content, id: pairIndex*2+1))
         }
+        cards.shuffle()
     }
     
     // nested struct. full name : MemoryGame.Card
     struct Card: Identifiable {
-        var isFaceUp: Bool = false
+        var isFaceUp: Bool = true
         var isMatched: Bool = false
         var content: CardContent
         var id: Int
